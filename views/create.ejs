@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      width: 100%;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      width: 100%;
+      background-color: black;
+    }
+
+    .nav-bar ul {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px;
+      margin: 0;
+    }
+
+    li {
+      list-style: none;
+      padding: 10px 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 60px); /* To account for the header */
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .name, .email, .password, .contact {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      width: 100%;
+    }
+
+    input:focus {
+      border-color: #007bff;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    input[type="submit"]:active {
+      background-color: #004085;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav-bar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="search">Search</a></li>
+        <li><a href="create">Create</a></li>
+        <li><a href="delete">Delete</a></li>
+        <li><a href="update">Update</a></li>
+        <li><a href="show-data">Show Data</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <div class="container">
+      <h1 class="h1">This is the Create Page</h1>
+      <form action="/create-request" method="post">
+        <div class="name">
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" required>
+        </div>
+        <div class="email">
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" required>
+        </div>
+        <div class="password">
+          <label for="password">Password:</label>
+          <input type="password" name="password" id="password" required>
+        </div>
+        <div class="contact">
+          <label for="contact">Contact:</label>
+          <input type="number" name="contact" id="contact" required>
+        </div>
+
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </section>
+
+</body>
+</html>

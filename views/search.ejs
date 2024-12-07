@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      width: 100%;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      width: 100%;
+      background-color: black;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .nav-bar ul {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0;
+      padding: 10px;
+    }
+
+    li {
+      list-style: none;
+      padding: 10px 20px;
+    }
+
+    ul a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bolder;
+      transition: background-color 0.3s;
+    }
+
+    ul a:hover {
+      background-color: #444;
+      border-radius: 5px;
+    }
+
+    .container {
+      height: 90vh;
+      width: 100%;
+      background: radial-gradient(circle, rgba(148, 187, 233, 1) 21%, rgba(174, 192, 238, 1) 45%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 50px;
+      padding: 20px;
+    }
+
+    .h1 {
+      font-size: 40px;
+      color: #333;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 500px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .name,
+    .email {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    label {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+    }
+
+    input[type="submit"] {
+      background-color: black;
+      color: white;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    input[type="submit"]:active {
+      background-color: #004085;
+    }
+
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .search-data {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    .search-data div {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .search-data div:last-child {
+      border-bottom: none;
+    }
+
+    .search-data h1 {
+      font-size: 18px;
+      color: #333;
+      margin: 5px 0;
+    }
+
+    .data-display {
+      padding: 20px;
+      background-color: #f4f4f4;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .data-display h1 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="search">Search</a></li>
+        <li><a href="create">Create</a></li>
+        <li><a href="delete">Delete</a></li>
+        <li><a href="update">Update</a></li>
+        <li><a href="show-data">Show Data</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <div class="container">
+      <h1 class="h1">This is the Search Page</h1>
+      <form action="/search-request" method="post">
+        <div class="name">
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" required>
+        </div>
+        <div class="email">
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" required>
+        </div>
+
+        <input type="submit" value="Search" class="btn">
+      </form>
+    </div>
+  </section>
+
+  <main>
+    <h2>Search Results</h2>
+    <div class="search-data">
+      <h1 class="one"></h1>
+      <h1 class="two"></h1>
+      <h1 class="three"></h1>
+      <h1 class="four"></h1>
+     
+    </div>
+  </main>
+
+  <script>
+   
+      let one = document.querySelector(".one");
+      let two = document.querySelector(".two");
+      let three = document.querySelector(".three");
+      let four = document.querySelector(".four");
+      let input = document.querySelector("#email");
+      let btn = document.querySelector(".btn");
+      btn.addEventListener("click", (e) => {
+        e.preventDefault()
+        let emailData = input.value.trim().toLowerCase();
+
+        fetch("/search-request")
+        .then((res) => res.json())
+        .then((data) => {
+           console.log(data);
+           
+        })
+      })
+    
+      
+   
+  </script>
+
+</body>
+
+</html>
